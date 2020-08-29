@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private float _horizontalAxis;
     private float _jumpAxis;
 
+    private bool _noClip;
+
     private void Awake()
     {
         Cursor.visible = false;
@@ -67,7 +69,11 @@ public class PlayerController : MonoBehaviour
         var forwardSpeed = angleSin * _verticalAxis + angleCos * _horizontalAxis;
         var strafeSpeed = angleCos * _verticalAxis - angleSin * _horizontalAxis;
 
-        characterController.Move(new Vector3(forwardSpeed, _verticalSpeed, strafeSpeed) * dt);
+        var movement = _noClip
+            ? playerCamera.forward * _verticalAxis + playerCamera.right * _horizontalAxis
+            : new Vector3(forwardSpeed, _verticalSpeed, strafeSpeed);
+
+        characterController.Move(movement * dt);
     }
 
     private void Look()
@@ -91,6 +97,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            _noClip = !_noClip;
+            gameObject.layer = _noClip ? LayerMask.NameToLayer("UI") : LayerMask.NameToLayer("Player");
+        }
+
         PlayerInput();
         Look();
     }
