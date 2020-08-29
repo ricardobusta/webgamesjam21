@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
     [SerializeField] private float lookSpeed;
 
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
+    private CharacterController _characterController;
     private Vector3 _lastMousePos;
 
     private Vector3 _look;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        _rigidbody = GetComponent<Rigidbody>();
+        _characterController = GetComponent<CharacterController>();
         _lastMousePos = Input.mousePosition;
     }
 
@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour
         var strafeSpeed = angleCos * vertical - angleSin * horizontal;
 
         var movement = forwardSpeed + strafeSpeed;
-        var verticalSpeed = _rigidbody.velocity.y;
-        _rigidbody.velocity = new Vector3(forwardSpeed,verticalSpeed,strafeSpeed);
+        var verticalSpeed = _characterController.velocity.y;
+        _characterController.SimpleMove(new Vector3(forwardSpeed,verticalSpeed,strafeSpeed));
     }
 
     private void Look()
