@@ -5,11 +5,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float lookSpeed;
     [SerializeField] private float jumpSpeed;
-    
+
     [SerializeField] private Transform playerCamera;
-    
-    private CharacterController _characterController;
-    private Vector3 _lastMousePos;
+    [SerializeField] private ObjectInspector inspector;
+    [SerializeField] private CharacterController characterController;
 
     private Vector3 _look;
 
@@ -23,25 +22,28 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        _characterController = GetComponent<CharacterController>();
-        _lastMousePos = Input.mousePosition;
     }
 
-    private void MoveInput()
+    private void PlayerInput()
     {
         _verticalAxis = Input.GetAxis("Vertical") * movementSpeed;
         _horizontalAxis = Input.GetAxis("Horizontal") * movementSpeed;
         _jumpAxis = Input.GetAxis("Jump");
-        
-        if (_characterController.isGrounded && _jumpAxis <= 0)
+
+        if (characterController.isGrounded && _jumpAxis <= 0)
         {
             _canJump = true;
-        } 
+        }
+
+        if (Input.GetButtonDown("Interact"))
+        {
+            inspector.PickObject();
+        }
     }
-    
+
     private void Move(float dt)
     {
-        if (_characterController.isGrounded)
+        if (characterController.isGrounded)
         {
             if (_canJump && _jumpAxis > 0)
             {
@@ -55,9 +57,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _verticalSpeed = _characterController.velocity.y + Physics.gravity.y * dt;
+            _verticalSpeed = characterController.velocity.y + Physics.gravity.y * dt;
         }
-        
+
         var lookAngle = _look.y * Mathf.Deg2Rad;
         var angleSin = Mathf.Sin(lookAngle);
         var angleCos = Mathf.Cos(lookAngle);
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
         var forwardSpeed = angleSin * _verticalAxis + angleCos * _horizontalAxis;
         var strafeSpeed = angleCos * _verticalAxis - angleSin * _horizontalAxis;
 
-        _characterController.Move(new Vector3(forwardSpeed, _verticalSpeed, strafeSpeed) * dt);
+        characterController.Move(new Vector3(forwardSpeed, _verticalSpeed, strafeSpeed) * dt);
     }
 
     private void Look()
@@ -89,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        MoveInput();
+        PlayerInput();
         Look();
     }
 }

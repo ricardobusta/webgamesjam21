@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class InteractiveObject : MonoBehaviour
 {
@@ -15,13 +14,16 @@ public class InteractiveObject : MonoBehaviour
 
     [SerializeField] private InteractionRequirement[] requirements;
     
-    [SerializeField] private UnityEvent onInteractSuccess;
-    [SerializeField] private UnityEvent onInteractFail;
+    [SerializeField] private Interaction success;
+    [SerializeField] private Interaction fail;
 
     public string Name => objName;
 
     public void Interact()
     {
-        onInteractSuccess?.Invoke();
+        if (success != null)
+        {
+            success.Interact();
+        }
     }
 }

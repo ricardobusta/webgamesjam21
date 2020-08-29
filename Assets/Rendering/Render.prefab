@@ -326,7 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 109766816828673089}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Render
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 109766818234828198}
   - component: {fileID: 109766818234828197}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: FinalCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}

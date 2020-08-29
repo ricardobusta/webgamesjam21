@@ -8,7 +8,9 @@ public class ObjectInspector : MonoBehaviour
 
     [SerializeField] private float interactionDistance;
 
-    private Collider _inspectedObject;
+    private Collider _inspectedCollider;
+    private InteractiveObject _inspectedObject;
+    private bool _hasInspectedObject;
     private int _interactionLayer;
     private int _outlinedLayer;
 
@@ -20,12 +22,12 @@ public class ObjectInspector : MonoBehaviour
 
     public void PickObject()
     {
-        if (_inspectedObject != null)
+        if (_hasInspectedObject)
         {
-            
+            _inspectedObject.Interact();
         }
     }
-    
+
     // Update is called once per frame
     private void Update()
     {
@@ -33,14 +35,16 @@ public class ObjectInspector : MonoBehaviour
         if (Physics.Raycast(t.position, t.forward, out var hit, interactionDistance, interactiveLayer))
         {
             var col = hit.collider;
-            if (col != _inspectedObject)
+            if (col != _inspectedCollider)
             {
                 ResetObject();
                 if (col.TryGetComponent<InteractiveObject>(out var interaction))
                 {
-                    _inspectedObject = col;
-                    _inspectedObject.gameObject.layer = _outlinedLayer;
+                    _inspectedCollider = col;
+                    _inspectedObject = interaction;
+                    _inspectedCollider.gameObject.layer = _outlinedLayer;
                     inspectLabel.text = interaction.Name;
+                    _hasInspectedObject = true;
                 }
             }
         }
@@ -52,11 +56,13 @@ public class ObjectInspector : MonoBehaviour
 
     private void ResetObject()
     {
-        if (_inspectedObject != null)
+        if (_hasInspectedObject)
         {
-            _inspectedObject.gameObject.layer = _interactionLayer;
+            _inspectedCollider.gameObject.layer = _interactionLayer;
+            _inspectedCollider = null;
             _inspectedObject = null;
             inspectLabel.text = string.Empty;
+            _hasInspectedObject = false;
         }
     }
 }
