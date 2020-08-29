@@ -1,42 +1,62 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ObjectInspector : MonoBehaviour
 {
-    [SerializeField] private TextMeshPro inspectLabel;
+    [SerializeField] private TextMeshProUGUI inspectLabel;
     [SerializeField] private LayerMask interactiveLayer;
 
     [SerializeField] private float interactionDistance;
 
-    private Interactable _inpsectedObject;
-    private bool _hasInspectedObject;
+    private Collider _inspectedObject;
+    private int _interactionLayer;
+    private int _outlinedLayer;
 
-    private RaycastHit[] _hits = new RaycastHit[1];
+    private void Awake()
+    {
+        _interactionLayer = LayerMask.NameToLayer("Default");
+        _outlinedLayer = LayerMask.NameToLayer("Outlined");
+    }
 
+    public void PickObject()
+    {
+        if (_inspectedObject != null)
+        {
+            
+        }
+    }
+    
     // Update is called once per frame
     private void Update()
     {
         var t = transform;
-        var ray = new Ray(t.position, t.forward);
-        Debug.DrawRay(t.position, t.forward * interactionDistance);
-        if (Physics.RaycastNonAlloc(ray, _hits, interactionDistance, interactiveLayer) > 0)
+        if (Physics.Raycast(t.position, t.forward, out var hit, interactionDistance, interactiveLayer))
         {
-            if (_hits[0].collider.TryGetComponent(out _inpsectedObject))
+            var col = hit.collider;
+            if (col != _inspectedObject)
+            {
+                ResetObject();
+                if (col.TryGetComponent<InteractiveObject>(out var interaction))
                 {
-                    _hasInspectedObject = true;
-                    _inpsectedObject.gameObject.layer = LayerMask.NameToLayer("Outline");
-                    Debug.Log("Setting Layer");
+                    _inspectedObject = col;
+                    _inspectedObject.gameObject.layer = _outlinedLayer;
+                    inspectLabel.text = interaction.Name;
                 }
+            }
         }
         else
         {
-            if (_hasInspectedObject)
-            {
-                _inpsectedObject.gameObject.layer = LayerMask.NameToLayer("Default");
-                _hasInspectedObject = false;
-                Debug.Log("Removing Layer");
-            }
+            ResetObject();
+        }
+    }
+
+    private void ResetObject()
+    {
+        if (_inspectedObject != null)
+        {
+            _inspectedObject.gameObject.layer = _interactionLayer;
+            _inspectedObject = null;
+            inspectLabel.text = string.Empty;
         }
     }
 }

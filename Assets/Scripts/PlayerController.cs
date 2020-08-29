@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 _look;
 
     private float _verticalSpeed;
-    private bool _jumpInput;
     private bool _canJump;
     private float _verticalAxis;
     private float _horizontalAxis;
@@ -28,7 +25,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         _characterController = GetComponent<CharacterController>();
         _lastMousePos = Input.mousePosition;
-        _jumpInput = true;
     }
 
     private void MoveInput()
