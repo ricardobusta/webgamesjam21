@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - Camera
+  - Rendering
   - NotRender
-  - Outline
-  - 
-  - 
+  - Outlined
+  - Interactable
+  - Player
   - 
   - 
   - 

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 663005058}
-  - component: {fileID: 663005056}
   - component: {fileID: 663005057}
   m_Layer: 9
   m_Name: UiCamera
@@ -32,14 +31,6 @@ Transform:
   m_Father: {fileID: 109766816828673089}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &663005056
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 663005053}
-  m_Enabled: 1
 --- !u!20 &663005057
 Camera:
   m_ObjectHideFlags: 0
@@ -372,7 +363,7 @@ GameObject:
   - component: {fileID: 109766818234828198}
   - component: {fileID: 109766818234828197}
   m_Layer: 8
-  m_Name: Camera
+  m_Name: FinalCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,8 +419,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
