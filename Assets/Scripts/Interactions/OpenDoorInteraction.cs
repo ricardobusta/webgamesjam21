@@ -14,7 +14,7 @@ namespace Interactions
         {
             if (!_open)
             {
-                transform.DORotate(rotateTo, duration);
+                transform.DOLocalRotate(rotateTo, duration);
                 _open = true;
             }
         }

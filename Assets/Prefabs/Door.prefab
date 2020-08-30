@@ -317,7 +317,8 @@ MonoBehaviour:
   - type: 0
     amount: 1
     consumed: 1
-  success: {fileID: 9096341667903752908}
+  successInteractions:
+  - {fileID: 9096341667903752908}
   failureMessage: You need {0} to open this.
   interactOnlyOnce: 1
   description: A regular wooden door.

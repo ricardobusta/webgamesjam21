@@ -112,7 +112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objName: Key
   requirements: []
-  success: {fileID: 6792981393897089736}
+  successInteractions:
+  - {fileID: 6792981393897089736}
   failureMessage: You need a {0} to pick this.
   interactOnlyOnce: 0
   description: An item.

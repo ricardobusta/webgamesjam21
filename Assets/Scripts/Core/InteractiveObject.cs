@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Core
 {
-    public class InteractiveObject : MonoBehaviour
+    public class InteractiveObject : InteractiveEntity
     {
         [SerializeField] private string objName;
 
@@ -20,16 +20,28 @@ namespace Core
 
         [SerializeField] private InteractionRequirement[] requirements;
 
-        [SerializeField] private Interaction success;
+        [SerializeField] private Interaction[] successInteractions;
         [SerializeField] private string failureMessage;
 
         [SerializeField] private bool interactOnlyOnce;
-        
+
         [SerializeField] private string description;
 
         private bool _interacted;
-        
-        public string Name => objName;
+
+        public override string Name => objName;
+        public override InteractiveObject MainObject => this;
+        private Collider _collider;
+
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+            var proxies = GetComponentsInChildren<ProxyInteractiveObject>();
+            foreach (var proxy in proxies)
+            {
+                proxy.mainObject = this;
+            }
+        }
 
         public void Describe()
         {
@@ -39,11 +51,11 @@ namespace Core
                 duration = 2
             });
         }
-        
+
         public void Interact()
         {
             if (interactOnlyOnce && _interacted) return;
-            
+
             var missing = (from requirement in requirements
                 let has = InventoryController.ItemAmount(requirement.type)
                 where requirement.amount > has
@@ -58,7 +70,12 @@ namespace Core
                         InventoryController.AddItem(requirement.type, -requirement.amount);
                     }
                 }
-                if (success != null) success.Interact();
+
+                foreach (var successInteraction in successInteractions)
+                {
+                    if (successInteraction != null) successInteraction.Interact();
+
+                }
                 _interacted = true;
             }
             else

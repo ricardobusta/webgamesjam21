@@ -44,12 +44,16 @@ namespace Player
                 if (col != _inspectedCollider)
                 {
                     ResetObject();
-                    if (col.TryGetComponent<InteractiveObject>(out var interaction))
+                    if (col.TryGetComponent<InteractiveEntity>(out var interaction))
                     {
                         _inspectedCollider = col;
-                        _inspectedObject = interaction;
-                        _inspectedCollider.gameObject.layer = _outlinedLayer;
-                        inspectLabel.text = interaction.Name;
+                        _inspectedObject = interaction.MainObject;
+                        _inspectedObject.gameObject.layer = _outlinedLayer;
+                        foreach (Transform child in _inspectedObject.transform)
+                        {
+                            child.gameObject.layer = _outlinedLayer;
+                        }
+                        inspectLabel.text = _inspectedObject.Name;
                         _hasInspectedObject = true;
                     }
                 }
@@ -64,7 +68,11 @@ namespace Player
         {
             if (_hasInspectedObject)
             {
-                _inspectedCollider.gameObject.layer = _interactionLayer;
+                _inspectedObject.gameObject.layer = _interactionLayer;
+                foreach (Transform child in _inspectedObject.transform)
+                {
+                    child.gameObject.layer = _interactionLayer;
+                }
                 _inspectedCollider = null;
                 _inspectedObject = null;
                 inspectLabel.text = string.Empty;
