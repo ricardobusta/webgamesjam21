@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 4576435960231518464}
   - component: {fileID: 4576435960231518494}
   - component: {fileID: 4576435960231518495}
+  - component: {fileID: 2001815749}
   m_Layer: 12
   m_Name: Player
   m_TagString: Untagged
@@ -191,7 +192,6 @@ MonoBehaviour:
   movementSpeed: 5
   lookSpeed: 1
   jumpSpeed: 4
-  playerCamera: {fileID: 4576435961158306148}
   inspector: {fileID: 4576435959144426427}
   characterController: {fileID: 4576435960231518495}
 --- !u!143 &4576435960231518495
@@ -212,6 +212,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2001815749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576435960231518493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46eee4e521b242838e5886b8a6c230e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4576435961158306145
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +235,7 @@ GameObject:
   - component: {fileID: 4576435961158306148}
   - component: {fileID: 4576435961158306147}
   - component: {fileID: 4576435961158306146}
+  - component: {fileID: 963194226}
   m_Layer: 12
   m_Name: PlayerEyes
   m_TagString: MainCamera
@@ -297,6 +310,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4576435961158306145}
   m_Enabled: 1
+--- !u!114 &963194226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576435961158306145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bee46d5f8c06f46902025e8ef5ecf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9210471122958587217
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8198665795127119971
 Transform:
   m_ObjectHideFlags: 0
@@ -323,7 +348,7 @@ Transform:
   m_GameObject: {fileID: 9210471122958587217}
   m_LocalRotation: {x: -0, y: -0, z: -0.27079463, w: 0.9626372}
   m_LocalPosition: {x: 0.592, y: -0.692, z: 1.13}
-  m_LocalScale: {x: 5, y: 5, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4576435961158306148}
   m_RootOrder: 0
