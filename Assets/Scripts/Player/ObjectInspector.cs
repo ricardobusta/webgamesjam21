@@ -14,13 +14,15 @@ namespace Player
         private Collider _inspectedCollider;
         private InteractiveObject _inspectedObject;
         private bool _hasInspectedObject;
-        private int _interactionLayer;
         private int _outlinedLayer;
+        private int _nonCollideLayer;
+        private int _outlinedNonCollideLayer;
 
         private void Awake()
         {
-            _interactionLayer = LayerMask.NameToLayer("Default");
+            _nonCollideLayer = LayerMask.NameToLayer("NonCollide");
             _outlinedLayer = LayerMask.NameToLayer("Outlined");
+            _outlinedNonCollideLayer = LayerMask.NameToLayer("NonCollideOutlined");
             inspectLabel.text = string.Empty;
         }
 
@@ -48,11 +50,12 @@ namespace Player
                     {
                         _inspectedCollider = col;
                         _inspectedObject = interaction.MainObject;
-                        _inspectedObject.gameObject.layer = _outlinedLayer;
-                        foreach (Transform child in _inspectedObject.transform)
-                        {
-                            child.gameObject.layer = _outlinedLayer;
-                        }
+                        var go = _inspectedObject.gameObject;
+                        var outlineLayer = go.layer == _nonCollideLayer
+                            ? _outlinedNonCollideLayer
+                            : _outlinedLayer;
+                        go.layer = outlineLayer;
+                        foreach (Transform child in _inspectedObject.transform) child.gameObject.layer = outlineLayer;
                         inspectLabel.text = _inspectedObject.Name;
                         _hasInspectedObject = true;
                     }
@@ -68,11 +71,9 @@ namespace Player
         {
             if (_hasInspectedObject)
             {
-                _inspectedObject.gameObject.layer = _interactionLayer;
+                _inspectedObject.gameObject.layer = _inspectedObject.DefaultLayer;
                 foreach (Transform child in _inspectedObject.transform)
-                {
-                    child.gameObject.layer = _interactionLayer;
-                }
+                    child.gameObject.layer = _inspectedObject.DefaultLayer;
                 _inspectedCollider = null;
                 _inspectedObject = null;
                 inspectLabel.text = string.Empty;

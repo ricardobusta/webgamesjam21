@@ -18,7 +18,7 @@ namespace Core
         }
 
         public static void AddItem(ItemType type, int amount)
-        { 
+        {
             InventoryUi.UpdateItem(type, _instance._inventory[type] += amount);
         }
 

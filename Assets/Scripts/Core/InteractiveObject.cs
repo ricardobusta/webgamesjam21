@@ -33,14 +33,14 @@ namespace Core
         public override InteractiveObject MainObject => this;
         private Collider _collider;
 
+        public int DefaultLayer { get; private set; }
+
         private void Awake()
         {
+            DefaultLayer = gameObject.layer;
             _collider = GetComponent<Collider>();
             var proxies = GetComponentsInChildren<ProxyInteractiveObject>();
-            foreach (var proxy in proxies)
-            {
-                proxy.mainObject = this;
-            }
+            foreach (var proxy in proxies) proxy.mainObject = this;
         }
 
         public void Describe()
@@ -64,18 +64,12 @@ namespace Core
             if (missing.Count == 0)
             {
                 foreach (var requirement in requirements)
-                {
                     if (requirement.consumed)
-                    {
                         InventoryController.AddItem(requirement.type, -requirement.amount);
-                    }
-                }
 
                 foreach (var successInteraction in successInteractions)
-                {
-                    if (successInteraction != null) successInteraction.Interact();
-
-                }
+                    if (successInteraction != null)
+                        successInteraction.Interact();
                 _interacted = true;
             }
             else

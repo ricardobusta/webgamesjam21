@@ -12,7 +12,7 @@ namespace Player
         [SerializeField] private ObjectInspector inspector;
         [SerializeField] private CharacterController characterController;
 
-        [NonSerialized] public static bool BlockInput = true; 
+        [NonSerialized] public static bool BlockInput = true;
 
         private Transform playerEyes;
         private Vector3 _look;
@@ -45,7 +45,7 @@ namespace Player
             if (characterController.isGrounded && _jumpAxis <= 0) _canJump = true;
 
             if (Input.GetButtonDown("Interact") || Input.GetButtonDown("Fire1")) inspector.PickObject();
-            
+
             if (Input.GetButtonDown("Fire2")) inspector.InspectObject();
         }
 

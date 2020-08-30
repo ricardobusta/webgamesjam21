@@ -8,6 +8,7 @@ public class GameInitialization : MonoBehaviour
 
     public GameObject PlayerEyes;
     public GameObject TitleScreenPosition;
+    public GameObject TitleCanvas;
 
     private void Start()
     {
@@ -23,19 +24,22 @@ public class GameInitialization : MonoBehaviour
 
     private IEnumerator InitializeRoutine()
     {
+        TitleCanvas.SetActive(true);
         var playerTransform = PlayerEyes.transform;
         var titleScreenTransform = TitleScreenPosition.transform;
         playerTransform.position = titleScreenTransform.position;
         playerTransform.rotation = titleScreenTransform.rotation;
         yield return new WaitUntil(() => Input.GetButtonDown("Fire1") || Input.GetButtonDown("Interact"));
+        TitleCanvas.SetActive(false);
         playerTransform.localPosition = Vector3.zero;
         playerTransform.localRotation = Quaternion.identity;
-        
+
         StartGame();
     }
 
     private void StartGame()
     {
+        TitleCanvas.SetActive(false);
         PlayerController.BlockInput = false;
     }
 }

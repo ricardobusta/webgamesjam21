@@ -11,6 +11,7 @@
         SpiderWeb,
         SanityPotion,
         SpeedPotion,
-        JumpPotion
+        JumpPotion,
+        Flask
     }
 }

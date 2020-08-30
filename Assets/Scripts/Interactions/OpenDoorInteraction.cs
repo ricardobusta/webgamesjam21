@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Ui;
 using UnityEngine;
 
 namespace Interactions
@@ -10,12 +11,36 @@ namespace Interactions
         public Vector3 rotateTo;
         public float duration;
 
+        public float messageDuration;
+        public string openMessage;
+        public string alreadyOpenMessage;
+
         public override void Interact()
         {
             if (!_open)
             {
                 transform.DOLocalRotate(rotateTo, duration);
                 _open = true;
+
+                if (!string.IsNullOrEmpty(openMessage))
+                {
+                    ShowDialogue.Show(new Dialogue
+                    {
+                        message = openMessage,
+                        duration = messageDuration
+                    });
+                }
+            }
+            else
+            {
+                if(!string.IsNullOrEmpty(alreadyOpenMessage))
+                {
+                    ShowDialogue.Show(new Dialogue
+                    {
+                        message = alreadyOpenMessage,
+                        duration = messageDuration
+                    });
+                }
             }
         }
     }
