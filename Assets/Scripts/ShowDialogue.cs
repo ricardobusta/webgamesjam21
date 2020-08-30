@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -15,13 +16,12 @@ public class ShowDialogue : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI label;
 
-    private List<Dialogue> _queue;
-
     private Tween _dialogueTween;
 
     private void Awake()
     {
         Instance = this;
+        label.text = string.Empty;
     }
 
     public void Show(IEnumerable<Dialogue> dialogue)

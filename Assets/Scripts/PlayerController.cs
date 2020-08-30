@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,10 +7,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float lookSpeed;
     [SerializeField] private float jumpSpeed;
 
-    [SerializeField] private Transform playerCamera;
     [SerializeField] private ObjectInspector inspector;
     [SerializeField] private CharacterController characterController;
 
+    private Transform playerEyes;
     private Vector3 _look;
 
     private float _verticalSpeed;
@@ -24,6 +25,11 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Start()
+    {
+        playerEyes = EyesCamera.Transform;
     }
 
     private void PlayerInput()
@@ -70,7 +76,7 @@ public class PlayerController : MonoBehaviour
         var strafeSpeed = angleCos * _verticalAxis - angleSin * _horizontalAxis;
 
         var movement = _noClip
-            ? playerCamera.forward * _verticalAxis + playerCamera.right * _horizontalAxis
+            ? playerEyes.forward * _verticalAxis + playerEyes.right * _horizontalAxis
             : new Vector3(forwardSpeed, _verticalSpeed, strafeSpeed);
 
         characterController.Move(movement * dt);
@@ -80,14 +86,14 @@ public class PlayerController : MonoBehaviour
     {
         var mouseX = Input.GetAxis("Mouse X");
         var mouseY = Input.GetAxis("Mouse Y");
-
+        
         // Mouse horizontal control camera rotation in vertical axis and vice versa
         _look = new Vector3(
             Mathf.Clamp(_look.x - mouseY * lookSpeed, -90, 90),
             _look.y + mouseX * lookSpeed
         );
 
-        playerCamera.rotation = Quaternion.Euler(_look);
+        playerEyes.rotation = Quaternion.Euler(_look);
     }
 
     private void FixedUpdate()

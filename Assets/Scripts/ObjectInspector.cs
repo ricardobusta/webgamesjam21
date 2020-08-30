@@ -18,6 +18,7 @@ public class ObjectInspector : MonoBehaviour
     {
         _interactionLayer = LayerMask.NameToLayer("Default");
         _outlinedLayer = LayerMask.NameToLayer("Outlined");
+        inspectLabel.text = string.Empty;
     }
 
     public void PickObject()
