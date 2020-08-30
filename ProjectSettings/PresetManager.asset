@@ -16,3 +16,11 @@ PresetManager:
     - m_Preset: {fileID: 2655988077585873504, guid: d4c4be4035464f54c93506a4b8002f81, type: 2}
       m_Filter: glob:"**Sprites**.png"
       m_Disabled: 0
+  - first:
+      m_NativeTypeID: 1041
+      m_ManagedTypePPtr: {fileID: 0}
+      m_ManagedTypeFallback: 
+    second:
+    - m_Preset: {fileID: 2655988077585873504, guid: 0f9d2a7a13ff3b543947103d7083de17, type: 2}
+      m_Filter: glob:"**Models**.fbx"
+      m_Disabled: 0

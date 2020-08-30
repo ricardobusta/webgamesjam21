@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Player
 {
@@ -10,6 +11,8 @@ namespace Player
 
         [SerializeField] private ObjectInspector inspector;
         [SerializeField] private CharacterController characterController;
+
+        [NonSerialized] public static bool BlockInput = true; 
 
         private Transform playerEyes;
         private Vector3 _look;
@@ -100,12 +103,14 @@ namespace Player
 
         private void Update()
         {
+            if (BlockInput) return;
+#if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 _noClip = !_noClip;
                 gameObject.layer = _noClip ? LayerMask.NameToLayer("UI") : LayerMask.NameToLayer("Player");
             }
-
+#endif
             PlayerInput();
             Look();
         }
