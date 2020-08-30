@@ -43,18 +43,24 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: e3aa9536a0dced94785995ad74181dfb, type: 3}
-    totalSpriteSurfaceArea: 593
+    totalSpriteSurfaceArea: 1361
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: d77bf3a14a619c84aa69dea3a1ed57b5, type: 3}
+  - {fileID: 21300000, guid: 59a8f93370d352949989fede16ed8477, type: 3}
   - {fileID: 21300000, guid: c5f6dab75fa11ee47b9c3eab398e5db4, type: 3}
   - {fileID: 21300000, guid: 48a659f7050631f40b689a9713a6c7b4, type: 3}
+  - {fileID: 21300000, guid: dedadfcbebb95034bbdf8f68ab94bdeb, type: 3}
   - {fileID: 21300000, guid: 278959ffaadc63f49914760a3a86c8be, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Flower
+  - Mushroom
   - Key
   - knife
+  - Plant
   - crosshair
   m_Tag: Sprites
   m_IsVariant: 0

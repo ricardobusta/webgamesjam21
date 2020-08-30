@@ -29,6 +29,11 @@ namespace Player
             if (_hasInspectedObject) _inspectedObject.Interact();
         }
 
+        public void InspectObject()
+        {
+            if (_hasInspectedObject) _inspectedObject.Describe();
+        }
+
         // Update is called once per frame
         private void Update()
         {

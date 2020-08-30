@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ui;
 using UnityEngine;
 
 namespace Core
@@ -17,8 +18,8 @@ namespace Core
         }
 
         public static void AddItem(ItemType type, int amount)
-        {
-            _instance._inventory[type] += amount;
+        { 
+            InventoryUi.UpdateItem(type, _instance._inventory[type] += amount);
         }
 
         public static int ItemAmount(ItemType type)

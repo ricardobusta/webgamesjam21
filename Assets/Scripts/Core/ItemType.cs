@@ -2,6 +2,15 @@
 {
     public enum ItemType
     {
-        Key
+        Key,
+        Knife,
+        Plant,
+        Mushroom,
+        Flower,
+        Berries,
+        SpiderWeb,
+        SanityPotion,
+        SpeedPotion,
+        JumpPotion
     }
 }

@@ -4,6 +4,7 @@
     {
         _Tex ("Texture", 2D) = "white" {}
         _Tint ("Tint", Color) = (1,1,1,1)
+        _Slide("Slide", Vector) = (0,0,0,0)
     }
     SubShader
     {
@@ -34,18 +35,18 @@
             sampler2D _Tex;
             float4 _Tex_ST;
             fixed4 _Tint;
+            fixed4 _Slide;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _Tex);
+                o.uv = TRANSFORM_TEX(v.uv, _Tex) + (_Time.y * _Slide.xy);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
                 fixed4 col = tex2D(_Tex, i.uv);
                 col.rgb *= _Tint.rgb;
                 col.a = _Tint.a;

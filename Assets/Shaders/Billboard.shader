@@ -3,10 +3,11 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        [MaterialToggle] _FreeY("Free Y", Float) = 0
     }
     SubShader
     {
-        Tags {"Queue"="Transparent" "RenderType"="Transparent"}
+        Tags {"Queue"="Transparent" "RenderType"="Transparent" "DisableBatching"="True"}
         LOD 100
         Blend One OneMinusSrcAlpha
 
@@ -32,13 +33,14 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _FreeY;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = mul(UNITY_MATRIX_P, 
-                mul(UNITY_MATRIX_MV, float4(0.0, 0.0, 0.0, 1.0))
-                + float4(v.vertex.x, v.vertex.y, 0.0, 0.0));
+                mul(UNITY_MATRIX_MV, float4(0.0, v.vertex.y * _FreeY, 0.0, 1.0))
+                + float4(v.vertex.x, v.vertex.y * (1-_FreeY), 0, 0.0));
               
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 
@@ -47,7 +49,6 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col *= col.a;
                 return col;

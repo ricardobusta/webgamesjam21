@@ -13,8 +13,9 @@ namespace Core
         [Serializable]
         public struct InteractionRequirement
         {
-            public ItemType item;
+            public ItemType type;
             public int amount;
+            public bool consumed;
         }
 
         [SerializeField] private InteractionRequirement[] requirements;
@@ -22,22 +23,47 @@ namespace Core
         [SerializeField] private Interaction success;
         [SerializeField] private string failureMessage;
 
+        [SerializeField] private bool interactOnlyOnce;
+        
+        [SerializeField] private string description;
+
+        private bool _interacted;
+        
         public string Name => objName;
 
+        public void Describe()
+        {
+            ShowDialogue.Show(new Dialogue
+            {
+                message = description,
+                duration = 2
+            });
+        }
+        
         public void Interact()
         {
+            if (interactOnlyOnce && _interacted) return;
+            
             var missing = (from requirement in requirements
-                let has = InventoryController.ItemAmount(requirement.item)
+                let has = InventoryController.ItemAmount(requirement.type)
                 where requirement.amount > has
-                select $"{requirement.item} x{requirement.amount - has}").ToList();
+                select $"{requirement.type} x{requirement.amount - has}").ToList();
 
             if (missing.Count == 0)
             {
+                foreach (var requirement in requirements)
+                {
+                    if (requirement.consumed)
+                    {
+                        InventoryController.AddItem(requirement.type, -requirement.amount);
+                    }
+                }
                 if (success != null) success.Interact();
+                _interacted = true;
             }
             else
             {
-                ShowDialogue.Show(new Dialogue()
+                ShowDialogue.Show(new Dialogue
                 {
                     message = string.Format(failureMessage, string.Join(", ", missing)),
                     duration = 2

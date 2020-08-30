@@ -41,7 +41,9 @@ namespace Player
 
             if (characterController.isGrounded && _jumpAxis <= 0) _canJump = true;
 
-            if (Input.GetButtonDown("Interact")) inspector.PickObject();
+            if (Input.GetButtonDown("Interact") || Input.GetButtonDown("Fire1")) inspector.PickObject();
+            
+            if (Input.GetButtonDown("Fire2")) inspector.InspectObject();
         }
 
         private void Move(float dt)

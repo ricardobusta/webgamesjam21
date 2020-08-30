@@ -8,8 +8,6 @@ namespace Ui
     {
         private static InventoryUi _instance;
 
-        public InventoryUiItem[] items;
-
         private readonly Dictionary<ItemType, InventoryUiItem> _itemMap = new Dictionary<ItemType, InventoryUiItem>();
 
         private void Awake()
@@ -19,7 +17,7 @@ namespace Ui
 
         private void Start()
         {
-            foreach (var item in items)
+            foreach (var item in GetComponentsInChildren<InventoryUiItem>())
             {
                 _itemMap[item.type] = item;
                 UpdateItem(item.type, 0);
