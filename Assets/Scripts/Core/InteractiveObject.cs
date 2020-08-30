@@ -23,11 +23,10 @@ public class InteractiveObject : MonoBehaviour
 
     public void Interact()
     {
-        var inventory = Inventory.Instance;
         var missing = (from requirement in requirements
-            let has = inventory.ItemAmount(requirement.item)
+            let has = InventoryController.ItemAmount(requirement.item)
             where requirement.amount > has
-            select $"{requirement.item}x{requirement.amount - has}").ToList();
+            select $"{requirement.item} x{requirement.amount - has}").ToList();
 
         if (missing.Count == 0)
         {
@@ -35,10 +34,10 @@ public class InteractiveObject : MonoBehaviour
         }
         else
         {
-            ShowDialogue.Instance.Show(new Dialogue()
+            ShowDialogue.Show(new Dialogue()
             {
                 message = string.Format(failureMessage, string.Join(", ", missing)),
-                duration = 1
+                duration = 2
             });
         }
     }

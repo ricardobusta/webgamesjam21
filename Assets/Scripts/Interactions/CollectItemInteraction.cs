@@ -8,7 +8,7 @@ public class CollectItemInteraction : Interaction
     public override void Interact()
     {
         gameObject.SetActive(false);
-        Inventory.Instance.AddItem(type, amount);
-        ShowDialogue.Instance.Show(new Dialogue {duration = 1, message = $"Collected {type} x{amount}"});
+        InventoryController.AddItem(type, amount);
+        ShowDialogue.Show(new Dialogue {duration = 2, message = $"Collected {type} x{amount}"});
     }
 }
