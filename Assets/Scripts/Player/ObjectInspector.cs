@@ -1,66 +1,70 @@
-﻿using TMPro;
+﻿using Core;
+using TMPro;
 using UnityEngine;
 
-public class ObjectInspector : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private TextMeshProUGUI inspectLabel;
-    [SerializeField] private LayerMask interactiveLayer;
-
-    [SerializeField] private float interactionDistance;
-
-    private Collider _inspectedCollider;
-    private InteractiveObject _inspectedObject;
-    private bool _hasInspectedObject;
-    private int _interactionLayer;
-    private int _outlinedLayer;
-
-    private void Awake()
+    public class ObjectInspector : MonoBehaviour
     {
-        _interactionLayer = LayerMask.NameToLayer("Default");
-        _outlinedLayer = LayerMask.NameToLayer("Outlined");
-        inspectLabel.text = string.Empty;
-    }
+        [SerializeField] private TextMeshProUGUI inspectLabel;
+        [SerializeField] private LayerMask interactiveLayer;
 
-    public void PickObject()
-    {
-        if (_hasInspectedObject) _inspectedObject.Interact();
-    }
+        [SerializeField] private float interactionDistance;
 
-    // Update is called once per frame
-    private void Update()
-    {
-        var t = transform;
-        if (Physics.Raycast(t.position, t.forward, out var hit, interactionDistance, interactiveLayer))
+        private Collider _inspectedCollider;
+        private InteractiveObject _inspectedObject;
+        private bool _hasInspectedObject;
+        private int _interactionLayer;
+        private int _outlinedLayer;
+
+        private void Awake()
         {
-            var col = hit.collider;
-            if (col != _inspectedCollider)
+            _interactionLayer = LayerMask.NameToLayer("Default");
+            _outlinedLayer = LayerMask.NameToLayer("Outlined");
+            inspectLabel.text = string.Empty;
+        }
+
+        public void PickObject()
+        {
+            if (_hasInspectedObject) _inspectedObject.Interact();
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            var t = transform;
+            if (Physics.Raycast(t.position, t.forward, out var hit, interactionDistance, interactiveLayer))
             {
-                ResetObject();
-                if (col.TryGetComponent<InteractiveObject>(out var interaction))
+                var col = hit.collider;
+                if (col != _inspectedCollider)
                 {
-                    _inspectedCollider = col;
-                    _inspectedObject = interaction;
-                    _inspectedCollider.gameObject.layer = _outlinedLayer;
-                    inspectLabel.text = interaction.Name;
-                    _hasInspectedObject = true;
+                    ResetObject();
+                    if (col.TryGetComponent<InteractiveObject>(out var interaction))
+                    {
+                        _inspectedCollider = col;
+                        _inspectedObject = interaction;
+                        _inspectedCollider.gameObject.layer = _outlinedLayer;
+                        inspectLabel.text = interaction.Name;
+                        _hasInspectedObject = true;
+                    }
                 }
             }
+            else
+            {
+                ResetObject();
+            }
         }
-        else
-        {
-            ResetObject();
-        }
-    }
 
-    private void ResetObject()
-    {
-        if (_hasInspectedObject)
+        private void ResetObject()
         {
-            _inspectedCollider.gameObject.layer = _interactionLayer;
-            _inspectedCollider = null;
-            _inspectedObject = null;
-            inspectLabel.text = string.Empty;
-            _hasInspectedObject = false;
+            if (_hasInspectedObject)
+            {
+                _inspectedCollider.gameObject.layer = _interactionLayer;
+                _inspectedCollider = null;
+                _inspectedObject = null;
+                inspectLabel.text = string.Empty;
+                _hasInspectedObject = false;
+            }
         }
     }
 }

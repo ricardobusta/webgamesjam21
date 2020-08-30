@@ -2,31 +2,34 @@
 using TMPro;
 using UnityEngine;
 
-public class ShowDialogue : MonoBehaviour
+namespace Ui
 {
-    private static ShowDialogue _instance;
-
-    [SerializeField] private TextMeshProUGUI label;
-
-    private Tween _dialogueTween;
-
-    private void Awake()
+    public class ShowDialogue : MonoBehaviour
     {
-        _instance = this;
-        label.text = string.Empty;
-    }
+        private static ShowDialogue _instance;
 
-    public static void Show(params Dialogue[] dialogues)
-    {
-        _instance._dialogueTween?.Kill();
-        var showDialogue = DOTween.Sequence();
-        foreach (var dialogue in dialogues)
+        [SerializeField] private TextMeshProUGUI label;
+
+        private Tween _dialogueTween;
+
+        private void Awake()
         {
-            showDialogue.AppendCallback(() => _instance.label.text = dialogue.message);
-            showDialogue.AppendInterval(dialogue.duration);
+            _instance = this;
+            label.text = string.Empty;
         }
 
-        showDialogue.AppendCallback(() => _instance.label.text = string.Empty);
-        _instance._dialogueTween = showDialogue.Play();
+        public static void Show(params Dialogue[] dialogues)
+        {
+            _instance._dialogueTween?.Kill();
+            var showDialogue = DOTween.Sequence();
+            foreach (var dialogue in dialogues)
+            {
+                showDialogue.AppendCallback(() => _instance.label.text = dialogue.message);
+                showDialogue.AppendInterval(dialogue.duration);
+            }
+
+            showDialogue.AppendCallback(() => _instance.label.text = string.Empty);
+            _instance._dialogueTween = showDialogue.Play();
+        }
     }
 }

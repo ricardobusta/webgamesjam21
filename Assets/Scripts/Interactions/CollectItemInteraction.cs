@@ -1,14 +1,18 @@
-﻿using DefaultNamespace;
+﻿using Core;
+using Ui;
 
-public class CollectItemInteraction : Interaction
+namespace Interactions
 {
-    public ItemType type;
-    public int amount;
-
-    public override void Interact()
+    public class CollectItemInteraction : Interaction
     {
-        gameObject.SetActive(false);
-        InventoryController.AddItem(type, amount);
-        ShowDialogue.Show(new Dialogue {duration = 2, message = $"Collected {type} x{amount}"});
+        public ItemType type;
+        public int amount;
+
+        public override void Interact()
+        {
+            gameObject.SetActive(false);
+            InventoryController.AddItem(type, amount);
+            ShowDialogue.Show(new Dialogue {duration = 2, message = $"Collected {type} x{amount}"});
+        }
     }
 }

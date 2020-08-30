@@ -1,5 +1,8 @@
-﻿public struct Dialogue
+﻿namespace Ui
 {
-    public float duration;
-    public string message;
+    public struct Dialogue
+    {
+        public float duration;
+        public string message;
+    }
 }

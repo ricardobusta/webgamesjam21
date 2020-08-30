@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Core
 {
     public enum ItemType
     {

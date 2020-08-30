@@ -1,50 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using DefaultNamespace;
-using TMPro;
+﻿using System.Collections.Generic;
+using Core;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class InventoryUiItem : MonoBehaviour
+namespace Ui
 {
-    public ItemType type;
-    public Image icon;
-    public TextMeshProUGUI amount;
-}
-
-public class InventoryUi : MonoBehaviour
-{
-    private static InventoryUi _instance;
-
-    public InventoryUiItem[] items;
-
-    private readonly Dictionary<ItemType, InventoryUiItem> _itemMap = new Dictionary<ItemType, InventoryUiItem>();
-
-    private void Awake()
+    public class InventoryUi : MonoBehaviour
     {
-        _instance = this;
-    }
+        private static InventoryUi _instance;
 
-    private void Start()
-    {
-        foreach (var item in items)
+        public InventoryUiItem[] items;
+
+        private readonly Dictionary<ItemType, InventoryUiItem> _itemMap = new Dictionary<ItemType, InventoryUiItem>();
+
+        private void Awake()
         {
-            _itemMap[item.type] = item;
-            UpdateItem(item.type, 0);
+            _instance = this;
         }
-    }
 
-    public static void UpdateItem(ItemType type, int amount)
-    {
-        if (amount == 0)
+        private void Start()
         {
-            _instance._itemMap[type].gameObject.SetActive(false);
+            foreach (var item in items)
+            {
+                _itemMap[item.type] = item;
+                UpdateItem(item.type, 0);
+            }
         }
-        else
+
+        public static void UpdateItem(ItemType type, int amount)
         {
-            var item = _instance._itemMap[type];
-            item.gameObject.SetActive(true);
-            item.amount.text = $"x{amount}";
+            if (amount == 0)
+            {
+                _instance._itemMap[type].gameObject.SetActive(false);
+            }
+            else
+            {
+                var item = _instance._itemMap[type];
+                item.gameObject.SetActive(true);
+                item.amount.text = $"x{amount}";
+            }
         }
     }
 }

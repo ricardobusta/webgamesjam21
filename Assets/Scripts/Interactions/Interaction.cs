@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public abstract class Interaction : MonoBehaviour
+namespace Interactions
 {
-    public abstract void Interact();
+    public abstract class Interaction : MonoBehaviour
+    {
+        public abstract void Interact();
+    }
 }

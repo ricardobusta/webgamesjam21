@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Core
 {
     public class InventoryController : MonoBehaviour
     {

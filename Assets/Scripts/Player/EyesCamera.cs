@@ -1,12 +1,14 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EyesCamera : MonoBehaviour
+namespace Player
 {
-    public static Transform Transform { get; private set; }
-
-    private void Awake()
+    public class EyesCamera : MonoBehaviour
     {
-        Transform = transform;
+        public static Transform Transform { get; private set; }
+
+        private void Awake()
+        {
+            Transform = transform;
+        }
     }
 }

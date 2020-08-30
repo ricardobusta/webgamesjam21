@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
-public class OpenDoorInteraction : Interaction
+namespace Interactions
 {
-    private bool _open;
-
-    public Vector3 rotateTo;
-    public float duration;
-
-    public override void Interact()
+    public class OpenDoorInteraction : Interaction
     {
-        if (!_open)
+        private bool _open;
+
+        public Vector3 rotateTo;
+        public float duration;
+
+        public override void Interact()
         {
-            transform.DORotate(rotateTo, duration);
-            _open = true;
+            if (!_open)
+            {
+                transform.DORotate(rotateTo, duration);
+                _open = true;
+            }
         }
     }
 }
