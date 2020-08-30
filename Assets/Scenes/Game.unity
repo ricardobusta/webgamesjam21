@@ -3596,7 +3596,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh71892
+  m_Name: pb_Mesh160892
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20430,7 +20430,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh71706
+  m_Name: pb_Mesh160508
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -24577,8 +24577,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.5, y: 1, z: 22.75}
-  m_Center: {x: -1.75, y: 0.5, z: -0.625}
+  m_Size: {x: 8.5, y: 1, z: 33.727917}
+  m_Center: {x: -1.75, y: 0.5, z: 4.8639584}
 --- !u!114 &1340667638
 MonoBehaviour:
   m_ObjectHideFlags: 0
