@@ -38,15 +38,9 @@ public class PlayerController : MonoBehaviour
         _horizontalAxis = Input.GetAxis("Horizontal") * movementSpeed;
         _jumpAxis = Input.GetAxis("Jump");
 
-        if (characterController.isGrounded && _jumpAxis <= 0)
-        {
-            _canJump = true;
-        }
+        if (characterController.isGrounded && _jumpAxis <= 0) _canJump = true;
 
-        if (Input.GetButtonDown("Interact"))
-        {
-            inspector.PickObject();
-        }
+        if (Input.GetButtonDown("Interact")) inspector.PickObject();
     }
 
     private void Move(float dt)
@@ -86,7 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         var mouseX = Input.GetAxis("Mouse X");
         var mouseY = Input.GetAxis("Mouse Y");
-        
+
         // Mouse horizontal control camera rotation in vertical axis and vice versa
         _look = new Vector3(
             Mathf.Clamp(_look.x - mouseY * lookSpeed, -90, 90),

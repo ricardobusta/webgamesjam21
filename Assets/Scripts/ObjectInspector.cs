@@ -23,10 +23,7 @@ public class ObjectInspector : MonoBehaviour
 
     public void PickObject()
     {
-        if (_hasInspectedObject)
-        {
-            _inspectedObject.Interact();
-        }
+        if (_hasInspectedObject) _inspectedObject.Interact();
     }
 
     // Update is called once per frame

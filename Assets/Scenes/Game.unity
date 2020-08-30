@@ -1542,7 +1542,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-367524
+  m_Name: pb_Mesh14940
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1910,7 +1910,7 @@ MonoBehaviour:
   objName: 
   requirements: []
   success: {fileID: 0}
-  fail: {fileID: 0}
+  failureMessage: 
 --- !u!65 &245273281
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6938,7 +6938,7 @@ MonoBehaviour:
   objName: 
   requirements: []
   success: {fileID: 0}
-  fail: {fileID: 0}
+  failureMessage: 
 --- !u!43 &836141725
 Mesh:
   m_ObjectHideFlags: 0
@@ -7138,7 +7138,7 @@ MonoBehaviour:
   objName: Key
   requirements: []
   success: {fileID: 851383336}
-  fail: {fileID: 0}
+  failureMessage: 
 --- !u!212 &851383333
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8769,7 +8769,7 @@ MonoBehaviour:
   objName: 
   requirements: []
   success: {fileID: 0}
-  fail: {fileID: 0}
+  failureMessage: 
 --- !u!65 &1025228245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11416,9 +11416,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objName: Door
-  requirements: []
+  requirements:
+  - item: 0
+    amount: 1
   success: {fileID: 1474407167}
-  fail: {fileID: 0}
+  failureMessage: You need {0} to open this.
 --- !u!114 &1474407163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13448,6 +13450,23 @@ Transform:
   m_Father: {fileID: 1123036028}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2001815748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4576435960231518493, guid: d82536c4867de7f4da845b28966c20f0, type: 3}
+  m_PrefabInstance: {fileID: 4576435960237204496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2001815749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001815748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46eee4e521b242838e5886b8a6c230e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &109766816865175067
 PrefabInstance:
   m_ObjectHideFlags: 0

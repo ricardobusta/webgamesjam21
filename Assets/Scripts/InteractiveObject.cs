@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 
 public class InteractiveObject : MonoBehaviour
@@ -6,24 +8,38 @@ public class InteractiveObject : MonoBehaviour
     [SerializeField] private string objName;
 
     [Serializable]
-    public class InteractionRequirement
+    public struct InteractionRequirement
     {
-        public string item;
+        public ItemType item;
         public int amount;
     }
 
     [SerializeField] private InteractionRequirement[] requirements;
-    
+
     [SerializeField] private Interaction success;
-    [SerializeField] private Interaction fail;
+    [SerializeField] private string failureMessage;
 
     public string Name => objName;
 
     public void Interact()
     {
-        if (success != null)
+        var inventory = Inventory.Instance;
+        var missing = (from requirement in requirements
+            let has = inventory.ItemAmount(requirement.item)
+            where requirement.amount > has
+            select $"{requirement.item}x{requirement.amount - has}").ToList();
+
+        if (missing.Count == 0)
         {
-            success.Interact();
+            if (success != null) success.Interact();
+        }
+        else
+        {
+            ShowDialogue.Instance.Show(new Dialogue()
+            {
+                message = string.Format(failureMessage, string.Join(", ", missing)),
+                duration = 1
+            });
         }
     }
 }
