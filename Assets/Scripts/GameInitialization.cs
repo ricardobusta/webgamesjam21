@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Player;
+using Ui;
 using UnityEngine;
 
 public class GameInitialization : MonoBehaviour
@@ -33,6 +34,11 @@ public class GameInitialization : MonoBehaviour
         TitleCanvas.SetActive(false);
         playerTransform.localPosition = Vector3.zero;
         playerTransform.localRotation = Quaternion.identity;
+        
+        ShowDialogue.Show(new Dialogue {duration = 2, message = "It's night. You have to complete your research."},
+            new Dialogue {duration = 2, message = "Read the book and find the materials."},
+            new Dialogue {duration = 2, message = "Use right click to read descriptions."});
+        yield return new WaitForSeconds(6);
 
         StartGame();
     }

@@ -31,8 +31,11 @@ namespace Player
 
         private bool _noClip;
 
+        private static PlayerController _instance;
+
         private void Awake()
         {
+            _instance = this;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             
@@ -45,6 +48,16 @@ namespace Player
         private void Start()
         {
             playerEyes = EyesCamera.Transform;
+        }
+
+        public static void SetSpeed(float s)
+        {
+            _instance.movementSpeed = s;
+        }
+
+        public static void SetJump(float j)
+        {
+            _instance.jumpSpeed = j;
         }
 
         private void PlayerInput()

@@ -10,11 +10,20 @@ namespace Interactions
 
         public string collectMessage;
 
+        public bool disappear = true;
+        private bool _collected = false;
+
         public override void Interact()
         {
-            gameObject.SetActive(false);
+            if (_collected) return;
+            if (disappear)
+            {
+                gameObject.SetActive(false);
+            }
+
             InventoryController.AddItem(type, amount);
             ShowDialogue.Show(new Dialogue {duration = 2, message = string.Format(collectMessage, type, amount)});
+            _collected = true;
         }
     }
 }
