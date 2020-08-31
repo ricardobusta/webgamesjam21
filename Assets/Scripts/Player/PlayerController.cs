@@ -8,7 +8,7 @@ namespace Player
     {
         [SerializeField] private float movementSpeed;
         [SerializeField] private float lookSpeed;
-        [SerializeField] private float jumpSpeed;
+        [SerializeField] public float jumpSpeed;
 
         [SerializeField] private ObjectInspector inspector;
         [SerializeField] private CharacterController characterController;
@@ -18,6 +18,8 @@ namespace Player
 
         public Canvas SettingsCanvas;
         public Slider SensibilitySlider;
+
+        public float gravity;
 
         private Transform playerEyes;
         private Vector3 _look;
@@ -32,7 +34,7 @@ namespace Player
 
         private bool _noClip;
 
-        private static PlayerController _instance;
+        public static PlayerController _instance;
 
         private void Awake()
         {
@@ -43,13 +45,14 @@ namespace Player
             _sensibility = PlayerPrefs.GetFloat("SENSIBILITY", 1);
             SensibilitySlider.value = _sensibility;
             SensibilitySlider.onValueChanged.AddListener(SetSensibility);
-            
+
             SettingsCanvas.gameObject.SetActive(false);
         }
 
         private void Start()
         {
             playerEyes = EyesCamera.Transform;
+            gravity = Physics.gravity.y;
         }
 
         public static void SetSpeed(float s)
@@ -92,7 +95,7 @@ namespace Player
             }
             else
             {
-                _verticalSpeed = characterController.velocity.y + Physics.gravity.y * dt;
+                _verticalSpeed = characterController.velocity.y + gravity * dt;
             }
 
             var lookAngle = _look.y * Mathf.Deg2Rad;
@@ -156,7 +159,7 @@ namespace Player
             {
                 return;
             }
-            
+
             PlayerInput();
             Look();
         }

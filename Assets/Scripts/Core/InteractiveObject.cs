@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Interactions;
 using Ui;
@@ -61,6 +62,9 @@ namespace Core
                 where requirement.amount > has
                 select $"{requirement.type} x{requirement.amount - has}").ToList();
 
+            // Enable this line to debug interactions.
+            //missing = new List<string>();
+            
             if (missing.Count == 0)
             {
                 foreach (var requirement in requirements)

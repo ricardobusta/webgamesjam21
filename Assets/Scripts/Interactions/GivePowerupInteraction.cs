@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using Interactions;
 using Player;
 using Ui;
@@ -25,7 +26,7 @@ public class GivePowerupInteraction : Interaction
                 PlayerController.SetJump(8);
                 break;
             case Powerup.Win:
-                // TODO WIN
+                GameInitialization.GameOver();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
