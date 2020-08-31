@@ -25,7 +25,7 @@ public class GivePowerupInteraction : Interaction
                 PlayerController.SetJump(8);
                 break;
             case Powerup.Win:
-                ShowDialogue.Show(new Dialogue {duration = 10, message = ""});
+                ShowDialogue.ShowNormal(new Dialogue {duration = 10, message = ""});
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

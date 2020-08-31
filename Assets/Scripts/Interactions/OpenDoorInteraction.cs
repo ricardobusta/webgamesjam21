@@ -24,7 +24,7 @@ namespace Interactions
 
                 if (!string.IsNullOrEmpty(openMessage))
                 {
-                    ShowDialogue.Show(new Dialogue
+                    ShowDialogue.ShowNormal(new Dialogue
                     {
                         message = openMessage,
                         duration = messageDuration
@@ -35,7 +35,7 @@ namespace Interactions
             {
                 if(!string.IsNullOrEmpty(alreadyOpenMessage))
                 {
-                    ShowDialogue.Show(new Dialogue
+                    ShowDialogue.ShowNormal(new Dialogue
                     {
                         message = alreadyOpenMessage,
                         duration = messageDuration

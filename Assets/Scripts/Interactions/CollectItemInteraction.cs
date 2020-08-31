@@ -22,7 +22,7 @@ namespace Interactions
             }
 
             InventoryController.AddItem(type, amount);
-            ShowDialogue.Show(new Dialogue {duration = 2, message = string.Format(collectMessage, type, amount)});
+            ShowDialogue.ShowNormal(new Dialogue {duration = 2, message = string.Format(collectMessage, type, amount)});
             _collected = true;
         }
     }

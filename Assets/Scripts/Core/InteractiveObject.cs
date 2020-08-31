@@ -45,7 +45,7 @@ namespace Core
 
         public void Describe()
         {
-            ShowDialogue.Show(new Dialogue
+            ShowDialogue.ShowNormal(new Dialogue
             {
                 message = description,
                 duration = 2
@@ -74,7 +74,7 @@ namespace Core
             }
             else
             {
-                ShowDialogue.Show(new Dialogue
+                ShowDialogue.ShowNormal(new Dialogue
                 {
                     message = string.Format(failureMessage, string.Join(", ", missing)),
                     duration = 2

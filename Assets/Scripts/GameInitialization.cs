@@ -61,29 +61,29 @@ public class GameInitialization : MonoBehaviour
         });
         yield return new WaitForSeconds(3);
 
-        ShowDialogue.Show(new Dialogue {duration = 2, message = "Damn. I woke too late. It's almost dawn."});
+        ShowDialogue.ShowNormal(new Dialogue {duration = 2, message = "Damn. I woke too late. It's almost dawn."});
         yield return new WaitForSeconds(3);
 
-        ShowDialogue.Show(
+        ShowDialogue.ShowTutorial(
             new Dialogue
             {
                 duration = 2,
-                message = "<color=yellow>Move the <color=red>Mouse</color> to look around.</color>"
+                message = "Move the <color=red>Mouse</color> to look around."
             },
             new Dialogue
             {
                 duration = 2,
-                message = "<color=yellow><color=red>Left Click</color> to read books and collect materials.</color>"
+                message = "<color=red>Left Click</color> to read books and collect materials."
             },
             new Dialogue
             {
                 duration = 2,
-                message = "<color=yellow>Use <color=red>Right Click</color> to read descriptions.</color>"
+                message = "Use <color=red>Right Click</color> to read descriptions."
             },
             new Dialogue
             {
                 duration = 2,
-                message = "<color=yellow>Use <color=red>WASD keys</color> to move around.</color>"
+                message = "Use <color=red>WASD keys</color> to move around."
             });
         yield return new WaitForSeconds(2);
         PlayerController.BlockLook = false;
