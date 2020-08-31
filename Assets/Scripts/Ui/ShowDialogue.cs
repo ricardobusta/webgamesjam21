@@ -12,6 +12,7 @@ namespace Ui
         [SerializeField] private TextMeshProUGUI tutorialLabel;
 
         private Tween _dialogueTween;
+        private Tween _tutorialTween;
 
         private void Awake()
         {
@@ -21,17 +22,20 @@ namespace Ui
 
         public static void ShowTutorial(params Dialogue[] dialogues)
         {
-            Show(_instance.tutorialLabel, dialogues);
+            _instance._tutorialTween?.Kill();
+            _instance._tutorialTween = Show(_instance.tutorialLabel, dialogues);
+            _instance._tutorialTween.Play();
         }
         
         public static void ShowNormal(params Dialogue[] dialogues)
         {
-            Show(_instance.label, dialogues);
+            _instance._dialogueTween?.Kill();
+            _instance._dialogueTween = Show(_instance.label, dialogues);
+            _instance._dialogueTween.Play();
         }
 
-        private static void Show(TextMeshProUGUI label, params Dialogue[] dialogues)
+        private static Sequence Show(TMP_Text label, params Dialogue[] dialogues)
         {
-            _instance._dialogueTween?.Kill();
             var showDialogue = DOTween.Sequence();
             foreach (var dialogue in dialogues)
             {
@@ -40,7 +44,7 @@ namespace Ui
             }
 
             showDialogue.AppendCallback(() => label.text = string.Empty);
-            _instance._dialogueTween = showDialogue.Play();            
+            return showDialogue;
         }
     }
 }

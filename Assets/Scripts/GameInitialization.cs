@@ -64,33 +64,39 @@ public class GameInitialization : MonoBehaviour
         ShowDialogue.ShowNormal(new Dialogue {duration = 2, message = "Damn. I woke too late. It's almost dawn."});
         yield return new WaitForSeconds(3);
 
+        StartGame();
+
         ShowDialogue.ShowTutorial(
             new Dialogue
             {
-                duration = 2,
+                duration = 4,
                 message = "Move the <color=red>Mouse</color> to look around."
             },
             new Dialogue
             {
-                duration = 2,
+                duration = 4,
+                message = "Use <color=red>WASD keys</color> to move around."
+            },
+            new Dialogue
+            {
+                duration = 4,
+                message = "<color=red>Space Bar</color> makes the character jump."
+            },
+            new Dialogue
+            {
+                duration = 4,
                 message = "<color=red>Left Click</color> to read books and collect materials."
             },
             new Dialogue
             {
-                duration = 2,
+                duration = 4,
                 message = "Use <color=red>Right Click</color> to read descriptions."
             },
             new Dialogue
             {
-                duration = 2,
-                message = "Use <color=red>WASD keys</color> to move around."
+                duration = 4,
+                message = "Your objective is to complete all research before dawn."
             });
-        yield return new WaitForSeconds(2);
-        PlayerController.BlockLook = false;
-        crossHair.SetActive(true);
-        yield return new WaitForSeconds(4);
-
-        StartGame();
     }
 
     private void StartGame()
