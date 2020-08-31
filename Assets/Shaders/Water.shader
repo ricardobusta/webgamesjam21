@@ -1,14 +1,14 @@
-﻿Shader "Custom/UnlitTint"
+﻿Shader "Custom/Water"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        _Tex ("Texture", 2D) = "white" {}
         _Tint ("Tint", Color) = (1,1,1,1)
         _Slide("Slide", Vector) = (0,0,0,0)
     }
     SubShader
     {
-        Tags {"Queue"="Opaque" "RenderType"="Transparent"}
+        Tags {"Queue"="Transparent" "RenderType"="Transparent"}
         LOD 100
         Blend One OneMinusSrcAlpha
 
@@ -32,8 +32,8 @@
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
+            sampler2D _Tex;
+            float4 _Tex_ST;
             fixed4 _Tint;
             fixed4 _Slide;
 
@@ -41,13 +41,13 @@
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex) + (_Time.y * _Slide.xy);
+                o.uv = TRANSFORM_TEX(v.uv, _Tex) + (_Time.y * _Slide.xy);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col = tex2D(_Tex, i.uv);
                 col.rgb *= _Tint.rgb;
                 col.a = _Tint.a;
                 return col;

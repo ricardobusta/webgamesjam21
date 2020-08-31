@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -14,6 +15,9 @@ namespace Player
 
         [NonSerialized] public static bool BlockInput = true;
 
+        public Canvas SettingsCanvas;
+        public Slider SensibilitySlider;
+
         private Transform playerEyes;
         private Vector3 _look;
 
@@ -23,12 +27,19 @@ namespace Player
         private float _horizontalAxis;
         private float _jumpAxis;
 
+        private float _sensibility;
+
         private bool _noClip;
 
         private void Awake()
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            
+            SensibilitySlider.onValueChanged.AddListener(SetSensibility);
+            SensibilitySlider.value = PlayerPrefs.GetFloat("SENSIBILITY", 1);
+            
+            SettingsCanvas.gameObject.SetActive(false);
         }
 
         private void Start()
@@ -84,8 +95,8 @@ namespace Player
 
         private void Look()
         {
-            var mouseX = Input.GetAxis("Mouse X");
-            var mouseY = Input.GetAxis("Mouse Y");
+            var mouseX = Input.GetAxis("Mouse X") * _sensibility;
+            var mouseY = Input.GetAxis("Mouse Y") * _sensibility;
 
             // Mouse horizontal control camera rotation in vertical axis and vice versa
             _look = new Vector3(
@@ -94,6 +105,12 @@ namespace Player
             );
 
             playerEyes.rotation = Quaternion.Euler(_look);
+        }
+
+        private void SetSensibility(float v)
+        {
+            _sensibility = v;
+            PlayerPrefs.SetFloat("SENSIBILITY", v);
         }
 
         private void FixedUpdate()
@@ -111,6 +128,19 @@ namespace Player
                 gameObject.layer = _noClip ? LayerMask.NameToLayer("UI") : LayerMask.NameToLayer("Player");
             }
 #endif
+            if (Input.GetKeyDown(KeyCode.F4))
+            {
+                var open = !SettingsCanvas.gameObject.activeSelf;
+                SettingsCanvas.gameObject.SetActive(open);
+                Cursor.visible = open;
+                Cursor.lockState = open ? CursorLockMode.None : CursorLockMode.Locked;
+            }
+
+            if (SettingsCanvas.gameObject.activeSelf)
+            {
+                return;
+            }
+            
             PlayerInput();
             Look();
         }
