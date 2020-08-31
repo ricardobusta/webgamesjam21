@@ -13,7 +13,8 @@ namespace Player
         [SerializeField] private ObjectInspector inspector;
         [SerializeField] private CharacterController characterController;
 
-        [NonSerialized] public static bool BlockInput = true;
+        [NonSerialized] public static bool BlockLook = true;
+        [NonSerialized] public static bool BlockMove = true;
 
         public Canvas SettingsCanvas;
         public Slider SensibilitySlider;
@@ -38,9 +39,10 @@ namespace Player
             _instance = this;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            
+
+            _sensibility = PlayerPrefs.GetFloat("SENSIBILITY", 1);
+            SensibilitySlider.value = _sensibility;
             SensibilitySlider.onValueChanged.AddListener(SetSensibility);
-            SensibilitySlider.value = PlayerPrefs.GetFloat("SENSIBILITY", 1);
             
             SettingsCanvas.gameObject.SetActive(false);
         }
@@ -75,6 +77,7 @@ namespace Player
 
         private void Move(float dt)
         {
+            if (BlockMove) return;
             if (characterController.isGrounded)
             {
                 if (_canJump && _jumpAxis > 0)
@@ -108,6 +111,7 @@ namespace Player
 
         private void Look()
         {
+            if (BlockLook) return;
             var mouseX = Input.GetAxis("Mouse X") * _sensibility;
             var mouseY = Input.GetAxis("Mouse Y") * _sensibility;
 
@@ -133,7 +137,6 @@ namespace Player
 
         private void Update()
         {
-            if (BlockInput) return;
 #if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.F1))
             {
